@@ -1,0 +1,67 @@
+query AllLivros {
+  listLivros {
+    success
+    errors
+    livros {
+      livro_id
+      autor 
+      titulo
+    }
+  }
+}
+
+
+query GetLivro {
+  getLivro(livro_id: "1") {
+    livro {
+      livro_id
+      autor
+      titulo
+    }
+    success
+    errors
+  }
+}
+
+
+mutation CreateNovoLivro {
+  createLivro(
+    autor: "Greg McKeown", 
+    titulo:"Essencialismo: A disciplinada busca por menos") {
+    livro {
+      livro_id
+      autor
+      titulo
+    }
+    success
+    errors
+  }
+}
+
+
+
+mutation UpdateLivro {
+  updateLivro(livro_id:"5", autor:"Clarice Lispector", titulo:"Um Sopro de Vida") {
+    livro {
+      livro_id
+      autor
+      titulo
+    }
+    success
+    errors
+  }
+}
+
+
+
+mutation DeleteLivro {
+  deleteLivro(livro_id:"5") {
+    success
+    errors
+    livro {
+      livro_id
+      autor
+      titulo
+    }
+  }
+}

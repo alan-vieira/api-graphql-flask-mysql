@@ -1,0 +1,33 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Livro {
+  livro_id: ID!
+  autor: String!
+  titulo: String!
+}
+
+type LivroResult {
+  success: Boolean!
+  errors: [String]
+  livro: Livro
+}
+
+type LivrosResult {
+  success: Boolean!
+  errors: [String]
+  livros: [Livro]
+}
+
+type Query {
+  listLivros: LivrosResult!
+  getLivro(livro_id: ID!): LivroResult!
+}
+
+type Mutation {
+  createLivro(autor: String!, titulo: String!): LivroResult!
+  updateLivro(livro_id: ID!, autor: String, titulo: String): LivroResult!
+  deleteLivro(livro_id: ID): LivroResult!
+}
