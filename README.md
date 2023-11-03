@@ -1,8 +1,10 @@
 # API GraphQL com Flask e MySQL
 
+Este é um projeto de exemplo de uma API GraphQL para gerenciar uma coleção de livros. A API permite listar livros, obter detalhes de um livro, criar um novo livro, atualizar informações de um livro e excluir um livro.
+
 ## Visão Geral
 
-Este projeto é uma API GraphQL desenvolvida com Flask para gerenciar uma coleção de livros. Ele oferece operações básicas, como listar todos os livros, obter detalhes de um livro específico, criar um novo livro, atualizar informações de um livro existente e excluir um livro.
+Este projeto é uma API GraphQL que fornece operações para gerenciar uma coleção de livros. Ele é construído com base no framework Flask e usa o SQLAlchemy para interagir com um banco de dados PostgreSQL.
 
 ## Estrutura de Pastas
 
@@ -35,17 +37,46 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 
 - `requirements.txt`: Lista as dependências do Python necessárias para o projeto. Use o `pip` para instalar essas dependências.
 
+## Pré-requisitos
+
+Antes de começar, você deve ter as seguintes dependências instaladas:
+
+- Python
+- Flask
+- Flask-SQLAlchemy
+- PostgreSQL
+- Ariadne
+
+Certifique-se de ter essas dependências instaladas no seu ambiente de desenvolvimento.
+
 ## Configuração
 
-Certifique-se de instalar todas as dependências do projeto listadas no arquivo `requirements.txt`. Você pode fazer isso com o comando:
+1. Clone o repositório:
+
+  ```bash
+  git clone https://github.com/seu-username/livros-api-graphql.git
+  cd livros-api-graphql
+  ```
+
+2. Configure a string de conexão com o banco de dados em `api/mysqlpass.py`.
+
+  ```bash
+  mysqlpass = "postgresql://postgresUser:postgresPW@localhost:5455/livros-api-graphql"
+  ```
+
+3. Instale as dependências:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-Além disso, você deve configurar os dados de conexão com o banco de dados PostgreSQL no arquivo `api/mysqlpass.py`. Substitua a variável `mysqlpass` pelo URI do seu banco de dados PostgreSQL.
+4. Execute o script para criar a tabela no banco de dados:
 
-## Executando o Aplicativo
+   ```bash
+   python cria_tabela.py
+   ```
+   
+## Como Usar
 
 Para executar o aplicativo, você pode usar os seguintes comandos:
 
@@ -61,53 +92,13 @@ Para executar o aplicativo, você pode usar os seguintes comandos:
     flask run
     ```
     
-O servidor de desenvolvimento estará disponível em "http://127.0.0.1:5000/" por padrão. Você pode acessar esse URL no seu navegador para interagir com a API.
-
-## Documentação da API
-
-A API segue o seguinte esquema GraphQL:
-
-```graphql
-  schema {
-  query: Query
-  mutation: Mutation
-}
-
-type Livro {
-  livro_id: ID!
-  autor: String!
-  titulo: String!
-}
-
-type LivroResult {
-  success: Boolean!
-  errors: [String]
-  livro: Livro
-}
-
-type LivrosResult {
-  success: Boolean!
-  errors: [String]
-  livros: [Livro]
-}
-
-type Query {
-  listLivros: LivrosResult!
-  getLivro(livro_id: ID!): LivroResult!
-}
-
-type Mutation {
-  createLivro(autor: String!, titulo: String!): LivroResult!
-  updateLivro(livro_id: ID!, autor: String, titulo: String): LivroResult!
-  deleteLivro(livro_id: ID): LivroResult!
-}
-  ```
+O servidor estará disponível em http://localhost:5000/graphql.
 
 ## Operações da API
 
-A API oferece as seguintes operações:
+A API oferece as seguintes operações
 
-Consulta para listar todos os livros:
+Listar Livros:
 
   ```graphql
   query AllLivros {
@@ -123,7 +114,7 @@ Consulta para listar todos os livros:
   }
   ```
 
-Consulta para obter informações sobre um livro específico:
+Obter Detalhes de um Livro
 
 ```graphql
   query GetLivro {
@@ -139,7 +130,7 @@ Consulta para obter informações sobre um livro específico:
 }
   ```
 
-Mutação para criar um novo livro:
+Criar um Novo Livro
 
 ```graphql
   mutation CreateNovoLivro {
@@ -158,7 +149,7 @@ Mutação para criar um novo livro:
 }
   ```
 
-Mutação para atualizar informações de um livro:
+Atualizar Informações de um Livro
 
 ```graphql
   mutation UpdateLivro {
@@ -174,7 +165,7 @@ Mutação para atualizar informações de um livro:
 }
   ```
 
-Mutação para excluir um livro:
+Excluir um Livro
 
 ```graphql
   mutation DeleteLivro {
@@ -192,14 +183,16 @@ Mutação para excluir um livro:
 
 ## Documentação dos Resolvedores
 
-Os resolvedores para cada operação estão documentados nos códigos do projeto nos arquivos `api/mutations.py` e `api/queries.py`. As docstrings e comentários fornecem informações detalhadas sobre a implementação de cada resolvedor.
+Os resolvedores para as operações da API estão localizados nos arquivos `api/queries.py` e `api/mutations.py`. Consulte esses arquivos para obter detalhes sobre cada resolvedor, incluindo parâmetros e comportamento esperado.
   
 ## Modelo de Dados
 
-O modelo de dados para a tabela `ColecaoLivros` está definido no arquivo `api/models.py`. O modelo contém os seguintes atributos:
+O modelo de dados é definido em `api/models.py`. Ele mapeia os campos da tabela `ColecaoLivros` no banco de dados para atributos da classe `ColecaoLivros` e fornece um método `to_dict` para converter uma instância do modelo em um dicionário.
 
-- `livro_id (ID)`: Chave primária da tabela para identificação única.
-- `autor (String)`: O autor do livro.
-- `titulo (String)`: O título do livro.
+## Estrutura de Diretórios
 
-Além disso, a classe `ColecaoLivros` fornece um método `to_dict()` que permite converter uma instância do modelo em um dicionário.
+- `api/`: Contém os arquivos da API, incluindo os resolvedores, modelos e arquivos relacionados.
+- `app.py`: O arquivo principal do aplicativo Flask.
+- `mysqlpass.py`: Arquivo com a string de conexão com o banco de dados.
+- `cria_tabela.py`: Script para criar a tabela no banco de dados.
+- `novo_livro.py`: Script para adicionar um novo livro ao banco de dados
