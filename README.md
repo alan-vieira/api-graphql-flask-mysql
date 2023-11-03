@@ -64,6 +64,8 @@ Certifique-se de ter essas dependências instaladas no seu ambiente de desenvolv
   mysqlpass = "postgresql://postgresUser:postgresPW@localhost:5455/livros-api-graphql"
   ```
 
+Certifique-se de que você tenha um banco de dados vazio chamado livros-api-graphql configurado no PostgreSQL antes de prosseguir.
+
 3. Instale as dependências:
 
    ```bash
