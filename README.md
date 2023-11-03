@@ -1,6 +1,8 @@
 # API GraphQL com Flask e MySQL
 
-Este é um exemplo de uma aplicação API GraphQL que utiliza Flask como framework web e MySQL como banco de dados. A aplicação permite listar, criar, atualizar e excluir informações sobre livros.
+## Visão Geral
+
+Este projeto é uma API GraphQL desenvolvida com Flask para gerenciar uma coleção de livros. Ele oferece operações básicas, como listar todos os livros, obter detalhes de um livro específico, criar um novo livro, atualizar informações de um livro existente e excluir um livro.
 
 ## Estrutura de Pastas
 
@@ -33,35 +35,77 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 
 - `requirements.txt`: Lista as dependências do Python necessárias para o projeto. Use o `pip` para instalar essas dependências.
 
-## Executando o Projeto
+## Configuração
 
-1. Clone o repositório para o seu ambiente de desenvolvimento.
-
-2. Instale as dependências do projeto executando o seguinte comando:
+Certifique-se de instalar todas as dependências do projeto listadas no arquivo `requirements.txt`. Você pode fazer isso com o comando:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Crie as tabelas no banco de dados executando o seguinte comando:
+Além disso, você deve configurar os dados de conexão com o banco de dados PostgreSQL no arquivo `api/mysqlpass.py`. Substitua a variável `mysqlpass` pelo URI do seu banco de dados PostgreSQL.
 
-   ```bash
-   python cria_tabela.py
-   ```
+## Executando o Aplicativo
 
-4.  Adicione um novo livro ao banco de dados executando o seguinte comando:
+Para executar o aplicativo, você pode usar os seguintes comandos:
+
+- Defina a variável de ambiente FLASK_APP:
 
   ```bash
-   python novo_livro.py
+   export FLASK_APP=app.py
    ```
-5.  Inicie o servidor da aplicação com o seguinte comando:
+  
+- Inicie o servidor de desenvolvimento Flask:
 
     ```bash
-    python app.py
+    flask run
     ```
-## Exemplos de Consultas e Mutações
+    
+O servidor de desenvolvimento estará disponível em "http://127.0.0.1:5000/" por padrão. Você pode acessar esse URL no seu navegador para interagir com a API.
 
-Aqui estão alguns exemplos de consultas e mutações que você pode executar:
+## Documentação da API
+
+A API segue o seguinte esquema GraphQL:
+
+```graphql
+  schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Livro {
+  livro_id: ID!
+  autor: String!
+  titulo: String!
+}
+
+type LivroResult {
+  success: Boolean!
+  errors: [String]
+  livro: Livro
+}
+
+type LivrosResult {
+  success: Boolean!
+  errors: [String]
+  livros: [Livro]
+}
+
+type Query {
+  listLivros: LivrosResult!
+  getLivro(livro_id: ID!): LivroResult!
+}
+
+type Mutation {
+  createLivro(autor: String!, titulo: String!): LivroResult!
+  updateLivro(livro_id: ID!, autor: String, titulo: String): LivroResult!
+  deleteLivro(livro_id: ID): LivroResult!
+}
+  ```
+
+## Operações da API
+
+A API oferece as seguintes operações:
 
 Consulta para listar todos os livros:
 
@@ -146,4 +190,16 @@ Mutação para excluir um livro:
 }
   ```
 
+## Documentação dos Resolvedores
+
+Os resolvedores para cada operação estão documentados nos códigos do projeto nos arquivos `api/mutations.py` e `api/queries.py`. As docstrings e comentários fornecem informações detalhadas sobre a implementação de cada resolvedor.
   
+## Modelo de Dados
+
+O modelo de dados para a tabela `ColecaoLivros` está definido no arquivo `api/models.py`. O modelo contém os seguintes atributos:
+
+- `livro_id (ID)`: Chave primária da tabela para identificação única.
+- `autor (String)`: O autor do livro.
+- `titulo (String)`: O título do livro.
+
+Além disso, a classe `ColecaoLivros` fornece um método `to_dict()` que permite converter uma instância do modelo em um dicionário.
