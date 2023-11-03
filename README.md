@@ -54,7 +54,7 @@ Certifique-se de ter essas dependências instaladas no seu ambiente de desenvolv
 1. Clone o repositório:
 
   ```bash
-  git clone https://github.com/seu-username/livros-api-graphql.git
+  git clone https://github.com/alan-vieira/api-graphql-flask-mysql.git
   cd livros-api-graphql
   ```
 
@@ -189,10 +189,11 @@ Os resolvedores para as operações da API estão localizados nos arquivos `api/
 
 O modelo de dados é definido em `api/models.py`. Ele mapeia os campos da tabela `ColecaoLivros` no banco de dados para atributos da classe `ColecaoLivros` e fornece um método `to_dict` para converter uma instância do modelo em um dicionário.
 
-## Estrutura de Diretórios
+## Licença
 
-- `api/`: Contém os arquivos da API, incluindo os resolvedores, modelos e arquivos relacionados.
-- `app.py`: O arquivo principal do aplicativo Flask.
-- `mysqlpass.py`: Arquivo com a string de conexão com o banco de dados.
-- `cria_tabela.py`: Script para criar a tabela no banco de dados.
-- `novo_livro.py`: Script para adicionar um novo livro ao banco de dados
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](https://github.com/alan-vieira/api-graphql-flask-mysql/blob/main/LICENSE) para detalhes.
+
+## Autor
+
+| [<img src="https://avatars.githubusercontent.com/alan-vieira" width=115><br><sub>Alan Vieira</sub>](https://github.com/alan-vieira) |
+| :---: |
