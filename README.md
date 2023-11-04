@@ -13,11 +13,11 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
   ```bash
   api-graphql-flask-mysql/
   |-- api/
-  |   |-- init.py
-  |   |-- models.py
-  |   |-- mutations.py
-  |   |-- queries.py
-  |   |-- mysqlpass.py
+  |    |-- __init__.py
+  |    |-- models.py
+  |    |-- mutations.py
+  |    |-- queries.py
+  |    |-- mysqlpass.py
   |-- app.py
   |-- cria_tabela.py
   |-- novo_livro.py
